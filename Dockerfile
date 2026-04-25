@@ -1,6 +1,6 @@
 # 第一阶段：构建依赖 (Builder Stage)
 # 使用官方 Composer 镜像安装 PHP 依赖，避免将 Composer 及其缓存带入最终镜像
-FROM composer:2 AS builder
+FROM --platform=linux/arm64 composer:2 AS builder
 
 WORKDIR /app
 
@@ -17,7 +17,7 @@ COPY . .
 
 # 第二阶段：运行环境 (Final Stage)
 # 基于 Alpine 的 PHP-FPM 镜像，体积非常小
-FROM php:8.2-fpm-alpine
+FROM --platform=linux/arm64 php:8.2-fpm-alpine
 
 # 设置镜像元数据
 LABEL maintainer="CDT-Monitor-Docker"
